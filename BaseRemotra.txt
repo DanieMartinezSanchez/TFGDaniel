@@ -1,0 +1,9 @@
+https://www.phpmyadmin.co/index.php?db=sql4499683&target=db_structure.php
+
+Server: sql4.freemysqlhosting.net
+Name: sql4499683
+Username: sql4499683
+Password: tDWfElP5NL
+Port number: 3306
+
+
