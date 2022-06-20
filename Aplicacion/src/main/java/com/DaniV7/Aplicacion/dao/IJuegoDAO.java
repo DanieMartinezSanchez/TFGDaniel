@@ -7,12 +7,16 @@ package com.DaniV7.Aplicacion.dao;
 
 import com.DaniV7.Aplicacion.entity.Juego;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Usuario
  */
+@Repository
 public interface IJuegoDAO extends JpaRepository<Juego, Integer> {
+    
+    public Juego findByNombre(String nombre);
     /*
     @Query("Select j.* from Juego j where j.nombre like :'%nomb%'")
     public List<Juego> juegosNombre(@Param("nomb") String nomb);

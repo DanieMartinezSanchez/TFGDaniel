@@ -1,8 +1,3 @@
- /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.DaniV7.Aplicacion.security;
 
 import com.DaniV7.Aplicacion.dao.IUsuarioDAO;
@@ -23,9 +18,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-     @Autowired
+    /**
+     * Inyeccion de la interfaz IUsuarioDAO
+     */
+    @Autowired
     private IUsuarioDAO usuarioDao;
 
+    /**
+     * Metodo loaduserByUsername que comprueba el nombre del usuario y en caso de no econtrar ninguna coincidencia devuelve una excepcion
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException 
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = usuarioDao.findByAlias(username);

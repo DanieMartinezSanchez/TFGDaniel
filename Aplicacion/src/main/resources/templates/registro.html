@@ -17,7 +17,7 @@
                                         <div class="card">
                                             <div class="card-header"><h4>REGISTRO</h4></div>
                                             <div>
-                                                <form th:acion="@{auth/registro}" th:object="${usuario}" method="post">
+                                                <form th:acion="@{/auth/registro}" th:object="${usuario}" method="post">
                                                     <div class="row form-group">
                                                         <label class="col-md-3">NOMBRE</label>
                                                         <input type="text" class="form-control col-md-7" th:field="*{nombre}"/>
@@ -42,7 +42,9 @@
                                                     <div class="row form-group">
                                                         <input type="submit" class="btn btn-success btn-block col-md-7 offset-3" value="REGISTRAR"/>
                                                     </div>
-
+                                                    <div class="row form-group">
+                                                        <button th:acion="@{/auth/login}" type="submit"  class="btn btn-success btn-block col-md-7 offset-3">INICIO SESION</button>
+                                                    </div>
                                                 </form>
                                             </div>
                                         </div>

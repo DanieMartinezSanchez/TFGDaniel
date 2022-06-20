@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.DaniV7.Aplicacion.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +17,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    /**
+     * Inyeccion del servicio UserDetailsService
+     */
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    /**
+     * Inyeccion del bean BCryptPasswordEncoder para poder encriptar las constraseñas de los usuarios
+     * @return 
+     */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
 
@@ -32,19 +34,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+    /**
+     * Metodo configuure auth que permitira comparar
+     * @param auth
+     * @throws Exception 
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
+    /**
+     * Metodo configure http que define las rutas a las que tienen accseso los usuarios con credenciales y los que no las tienen
+     * @param http
+     * @throws Exception 
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/", "/auth/**", "/public/**", "/css/**", "/js/**","/private/**").permitAll().anyRequest().authenticated()
+        http.authorizeRequests().antMatchers("/", "/auth/**","/series","/juegos", "/perfil").permitAll().anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/auth/login").defaultSuccessUrl("/private/pagina-principal", true).failureUrl("/auth/login?error=true")
+                .formLogin().loginPage("/auth/login").defaultSuccessUrl("/index", true).failureUrl("/auth/login?error=true")
                 .loginProcessingUrl("/auth/login-post").permitAll()
                 .and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/public/index");
-    }
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/");
 
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
+    }
 }
